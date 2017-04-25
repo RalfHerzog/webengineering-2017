@@ -14,12 +14,22 @@ public class PostController {
     private PostService postService;
 
     @GetMapping(value = "/posts")
-    public List<String> getPostList() {
-        return postService.getPostList();
+    public List<Post> getPostList() {
+        return postService.getPostList(10);
+    }
+
+    @GetMapping(value = "/posts/{id}")
+    public Post getPostList(@RequestParam("id") Integer id) {
+        return postService.getPost(id);
     }
 
     @PostMapping(value = "/posts")
     public void addPost(@RequestParam("title") String title) {
         postService.addPost(title);
+    }
+
+    @DeleteMapping(value = "/posts/{id}")
+    public void deletePost(@RequestParam("id") Integer postId) {
+        postService.deletePost(postId);
     }
 }
