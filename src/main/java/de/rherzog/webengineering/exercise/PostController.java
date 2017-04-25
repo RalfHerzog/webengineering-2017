@@ -1,10 +1,7 @@
 package de.rherzog.webengineering.exercise;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,12 +13,12 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @RequestMapping(value = "/post", method = RequestMethod.GET)
+    @GetMapping(value = "/posts")
     public List<String> getPostList() {
         return postService.getPostList();
     }
 
-    @RequestMapping(value = "/post/add", method = RequestMethod.PUT)
+    @PostMapping(value = "/posts")
     public void addPost(@RequestParam("title") String title) {
         postService.addPost(title);
     }
