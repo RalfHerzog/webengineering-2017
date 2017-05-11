@@ -13,23 +13,23 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping(value = "/posts")
+    @GetMapping(value = "/post")
     public List<Post> getPostList() {
-        return postService.getPostList(10);
+        return postService.getPostList();
     }
 
-    @GetMapping(value = "/posts/{id}")
-    public Post getPostList(@RequestParam("id") Integer id) {
+    @GetMapping(value = "/post/{id}")
+    public Post getPostList(@PathVariable Long id) {
         return postService.getPost(id);
     }
 
-    @PostMapping(value = "/posts")
-    public void addPost(@RequestParam("title") String title) {
-        postService.addPost(title);
+    @PostMapping(value = "/post")
+    public void addPost(@RequestBody Post post) {
+        postService.addPost(post);
     }
 
-    @DeleteMapping(value = "/posts/{id}")
-    public void deletePost(@RequestParam("id") Integer postId) {
-        postService.deletePost(postId);
+    @DeleteMapping(value = "/post/{id}")
+    public Boolean deletePost(@PathVariable Long id) {
+        return postService.deletePost(id);
     }
 }

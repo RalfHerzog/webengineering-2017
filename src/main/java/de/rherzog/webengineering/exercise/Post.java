@@ -1,16 +1,18 @@
 package de.rherzog.webengineering.exercise;
 
-import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by ralf on 26.04.17.
  */
 public class Post {
-    private Integer id;
+    private static AtomicLong nextId = new AtomicLong();
+    private Long id;
     private String title;
+    private Date createdAt;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -22,19 +24,12 @@ public class Post {
         this.title = title;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    private Date date;
-
-    public Post(Integer id, String title) {
-        this.id = id;
-        this.title = title;
-        this.date = new Date();
+    public Post() {
+        this.id = nextId.getAndIncrement();
+        this.createdAt = new Date();
     }
 }

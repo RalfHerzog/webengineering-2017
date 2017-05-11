@@ -23,20 +23,15 @@ public class PostService {
         return posts.subList(0, Math.min(posts.size(), size));
     }
 
-    public void addPost(@RequestParam("title") String title) {
-        posts.add(new Post(maxPostId++, title));
+    public void addPost(Post post) {
+        posts.add(post);
     }
 
-    public Boolean deletePost(@RequestParam("id") Integer postId) {
-        for (Post post : posts) {
-            if (post.getId() == postId) {
-                return posts.remove(post);
-            }
-        }
-        return false;
+    public Boolean deletePost(Long postId) {
+        return posts.remove(getPost(postId));
     }
 
-    public Post getPost(Integer id) {
+    public Post getPost(Long id) {
         for (Post post : posts) {
             if (post.getId() == id) {
                 return post;
