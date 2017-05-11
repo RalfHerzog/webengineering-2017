@@ -1,13 +1,19 @@
 package de.rherzog.webengineering.exercise;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by ralf on 26.04.17.
  */
+@Entity
 public class Post {
     private static AtomicLong nextId = new AtomicLong();
+    @Id
+    @GeneratedValue
     private Long id;
     private String title;
     private Date createdAt;

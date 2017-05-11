@@ -1,9 +1,8 @@
 package de.rherzog.webengineering.exercise;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,31 +11,26 @@ import java.util.List;
  */
 @Service
 public class PostService {
+    @Autowired
+    private PostRepository repository;
+
     private int maxPostId = 1;
     private List<Post> posts = new LinkedList<>();
 
-    public List<Post> getPostList() {
-        return getPostList(10);
+    public Iterable<Post> getPostList() {
+        return repository.findAll();
     }
 
-    public List<Post> getPostList(int size) {
-        return posts.subList(0, Math.min(posts.size(), size));
+    public Long addPost(Post post) {
+        repository.save(post);
+        return post.getId();
     }
 
-    public void addPost(Post post) {
-        posts.add(post);
-    }
-
-    public Boolean deletePost(Long postId) {
-        return posts.remove(getPost(postId));
+    public void deletePost(Long postId) {
+        repository.delete(postId);
     }
 
     public Post getPost(Long id) {
-        for (Post post : posts) {
-            if (post.getId() == id) {
-                return post;
-            }
-        }
-        return null;
+        return repository.findOne(id);
     }
 }
